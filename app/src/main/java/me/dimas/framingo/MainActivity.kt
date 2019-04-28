@@ -2,23 +2,32 @@ package me.dimas.framingo
 
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_main.*
+import timber.log.Timber
+import java.io.IOException
 
 class MainActivity : AppCompatActivity() {
 
-    private val OPEN_GALLERY_REQUEST_CODE: Int = 1
+    private val GALLERY_REQUEST_CODE: Int = 1
+    private lateinit var bitmap: Bitmap
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        // Timber Init
+        if (BuildConfig.DEBUG) {
+            Timber.plant(Timber.DebugTree())
+        }
+
+        // Calling another function
         requestPermission()
         initializeUi()
     }
@@ -47,7 +56,7 @@ class MainActivity : AppCompatActivity() {
         ) {
             ActivityCompat.requestPermissions(
                 this@MainActivity,
-                arrayOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE), OPEN_GALLERY_REQUEST_CODE
+                arrayOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE), GALLERY_REQUEST_CODE
             )
         }
     }
@@ -58,7 +67,7 @@ class MainActivity : AppCompatActivity() {
      */
     private fun onRequestPermissionResult(requestCode: Int, permission: Array<String>, grantResults: IntArray) {
         when (requestCode) {
-            OPEN_GALLERY_REQUEST_CODE -> {
+            GALLERY_REQUEST_CODE -> {
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     // Permission was granted, do proceed to next step
                 } else {
@@ -80,19 +89,27 @@ class MainActivity : AppCompatActivity() {
     private fun openGallery() {
         val galleryIntent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
 
-        startActivityForResult(galleryIntent, OPEN_GALLERY_REQUEST_CODE)
+        startActivityForResult(galleryIntent, GALLERY_REQUEST_CODE)
     }
 
+    /**
+     * Result after calling intent
+     */
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (data != null) {
-            val contentURI = data.data
-            hint_text_display.text = contentURI?.toString()
-            Picasso.get()
-                .load(contentURI)
-                .centerCrop()
-                .into(image_display)
+            val contentURI = data!!.data
+            Timber.d("Image URI: $contentURI")
+
+            try {
+                bitmap = MediaStore.Images.Media.getBitmap(this.contentResolver, contentURI)
+                image_display.setImageURI(contentURI)
+            } catch (e: IOException) {
+                e.printStackTrace()
+                Timber.e(e)
+            }
         }
     }
+
 }
