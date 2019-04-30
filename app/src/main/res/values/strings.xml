@@ -2,4 +2,6 @@
     <string name="app_name">Framingo</string>
     <string name="image_display">Display Image</string>
     <string name="hint_text">Choose Your Image</string>
+    <string name="background_button">Background</string>
+    <string name="image_button">Image</string>
 </resources>
