@@ -44,8 +44,17 @@ class MainActivity : AppCompatActivity() {
         hint_text_display.text = "Click the Image Above"
 
         // Set on click on image
-        image_display.setOnClickListener {
-            Toast.makeText(this, "Button Clicked", Toast.LENGTH_SHORT).show()
+//        image_display.setOnClickListener {
+//            Toast.makeText(this, "Button Clicked", Toast.LENGTH_SHORT).show()
+//            openGallery()
+//        }
+
+        // Set On click for the buttons
+        background_picker_button.setOnClickListener {
+            openGallery()
+        }
+
+        image_picker_button.setOnClickListener {
             openGallery()
         }
     }
