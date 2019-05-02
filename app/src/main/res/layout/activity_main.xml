@@ -10,10 +10,16 @@
         android:id="@+id/linear_image_holder"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:layout_margin="20dp"
+        android:gravity="center_horizontal"
         android:orientation="vertical"
+        android:layout_margin="15dp"
         tools:ignore="UseCompoundDrawables,UselessParent">
+
+        <me.dimas.framingo.view.CustomView
+            android:id="@+id/custom_display"
+            android:layout_width="360dp"
+            android:layout_height="360dp"
+            android:layout_margin="10dp"/>
 
         <ImageView
             android:id="@+id/image_display"

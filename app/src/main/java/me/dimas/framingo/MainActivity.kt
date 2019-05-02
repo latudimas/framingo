@@ -15,6 +15,7 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import kotlinx.android.synthetic.main.activity_main.*
+import me.dimas.framingo.view.CustomView
 import timber.log.Timber
 import java.io.IOException
 
@@ -35,6 +36,8 @@ class MainActivity : AppCompatActivity() {
         // Calling another function
         requestPermission()
         initializeUi()
+
+
     }
 
     /**
@@ -133,5 +136,6 @@ class MainActivity : AppCompatActivity() {
      *  2. Create one image view and set it as canvas
      *  3.
      */
+
 
 }
