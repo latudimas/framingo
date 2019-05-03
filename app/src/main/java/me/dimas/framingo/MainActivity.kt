@@ -28,6 +28,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+
         // Timber Init
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
@@ -112,7 +113,8 @@ class MainActivity : AppCompatActivity() {
 
             try {
                 bitmap = MediaStore.Images.Media.getBitmap(this.contentResolver, contentURI)
-                image_display.setImageURI(contentURI)
+//                image_display.setImageURI(contentURI)
+                custom_display.getBitmap(applicationContext, bitmap)
             } catch (e: IOException) {
                 e.printStackTrace()
                 Timber.e(e)
