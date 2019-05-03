@@ -2,14 +2,21 @@ package me.dimas.framingo.view
 
 import android.content.Context
 import android.graphics.*
+import android.net.Uri
+import android.provider.MediaStore
 import android.util.AttributeSet
+import android.util.Log
 import android.view.View
 import me.dimas.framingo.R
+import timber.log.Timber
+import java.io.ByteArrayOutputStream
+import java.net.URI
 
-//class CustomView @JvmOverloads constructor(context: Context?, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
-//    View(context, attrs, defStyleAttr) {
+class CustomView @JvmOverloads constructor(context: Context?, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
+    View(context, attrs, defStyleAttr) {
 
-class CustomView(context: Context, attrs: AttributeSet) : View(context, attrs) {
+//class CustomView(context: Context, attrs: AttributeSet) : View(context, attrs) {
+
     // Instance declaration
     private val paint = Paint(Paint.ANTI_ALIAS_FLAG)
     private var squareFrameColor = Color.BLACK
@@ -49,22 +56,34 @@ class CustomView(context: Context, attrs: AttributeSet) : View(context, attrs) {
      * Drawing the image that user chosen into the canvas
      */
     private fun drawBitmapImage(canvas: Canvas?) {
-        val bitmapWidth = bitmap.width
-        val bitmapHeight = bitmap.height
 
-        var targetWidth = (0.75 * bitmapWidth).toFloat()
-        var targetHeight = (0.75 * bitmapHeight).toFloat()
-
-        val resizedBitmap: Bitmap = Bitmap.createScaledBitmap(bitmap, targetWidth.toInt(), targetHeight.toInt(), false)
 //        (bitmap, 0, 0, bitmapWidth, bitmapHeight, matrix, false)
 
-        canvas?.drawBitmap(resizedBitmap, 100f, 100f, null)
+        if (bitmap == null) {
+            Timber.d("Bitmap are null")
+        } else {
+            val bitmapWidth = bitmap.width
+            val bitmapHeight = bitmap.height
+
+            var targetWidth = (0.75 * bitmapWidth).toInt()
+            var targetHeight = (0.75 * bitmapHeight).toInt()
+
+            val resizedBitmap = Bitmap.createScaledBitmap(bitmap, targetWidth, targetHeight, false)
+
+            canvas?.drawBitmap(resizedBitmap, 100f, 100f, null)
+        }
     }
 
     /**
-     * Function for set bitmap global variable
+     * Get Bitmap image from activity result
      */
-    fun getBitmapFile(bitmapImage: Bitmap) {
-        bitmap = bitmapImage
+    fun getBitmap(inContext: Context?, selectedBitmap: Bitmap) {
+        var paths = MediaStore.Images.Media.insertImage(inContext?.contentResolver, selectedBitmap, "Title", null)
+        var uris: Uri? = Uri.parse(paths)
+
+        bitmap = selectedBitmap
+        Timber.d("Bitmap URI : %s", uris.toString())
     }
+
+    // Todo -> learn lifecycle of custom view, there still something wrong with this flow especially in bitmap handling
 }
