@@ -36,8 +36,6 @@ class MainActivity : AppCompatActivity() {
         // Calling another function
         requestPermission()
         initializeUi()
-
-
     }
 
     /**
@@ -128,14 +126,5 @@ class MainActivity : AppCompatActivity() {
     fun initializeCanvas(backgroundBitmap: Bitmap) {
         val canvas: Canvas = Canvas(backgroundBitmap)
     }
-
-    /**
-     *  TODO: For Testing our understanding in canvas
-     *  1. Create interface with 2 buttons.
-     *      One for load background and one for overlay image on top of it
-     *  2. Create one image view and set it as canvas
-     *  3.
-     */
-
 
 }
