@@ -3,5 +3,5 @@
     <string name="image_display">Display Image</string>
     <string name="hint_text">Choose Your Image</string>
     <string name="background_button">Background</string>
-    <string name="image_button">Image</string>
+    <string name="image_button">Select Image</string>
 </resources>

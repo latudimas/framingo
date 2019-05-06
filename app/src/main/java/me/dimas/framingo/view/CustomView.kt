@@ -17,6 +17,8 @@ class CustomView @JvmOverloads constructor(context: Context?, attrs: AttributeSe
 
 //class CustomView(context: Context, attrs: AttributeSet) : View(context, attrs) {
 
+
+
     // Instance declaration
     private val paint = Paint(Paint.ANTI_ALIAS_FLAG)
     private var squareFrameColor = Color.BLACK
