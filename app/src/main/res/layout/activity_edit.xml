@@ -9,4 +9,10 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"/>
 
+    <ImageView
+        android:id="@+id/temp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_below="@id/custom_display"
+        android:layout_margin="10dp" />
 </RelativeLayout>

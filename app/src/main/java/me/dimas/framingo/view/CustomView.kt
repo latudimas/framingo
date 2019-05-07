@@ -17,8 +17,6 @@ class CustomView @JvmOverloads constructor(context: Context?, attrs: AttributeSe
 
 //class CustomView(context: Context, attrs: AttributeSet) : View(context, attrs) {
 
-
-
     // Instance declaration
     private val paint = Paint(Paint.ANTI_ALIAS_FLAG)
     private var squareFrameColor = Color.BLACK
@@ -29,7 +27,7 @@ class CustomView @JvmOverloads constructor(context: Context?, attrs: AttributeSe
         super.onDraw(canvas)
 
         drawSquareFrame(canvas)
-        drawBitmapImage(canvas)
+//        drawBitmapImage(canvas)
     }
 
     /**
@@ -79,13 +77,14 @@ class CustomView @JvmOverloads constructor(context: Context?, attrs: AttributeSe
     /**
      * Get Bitmap image from activity result
      */
-    fun getBitmap(inContext: Context?, selectedBitmap: Bitmap) {
+    fun setBitmap(inContext: Context?, selectedBitmap: Bitmap, canvas: Canvas?) {
         var paths = MediaStore.Images.Media.insertImage(inContext?.contentResolver, selectedBitmap, "Title", null)
         var uris: Uri? = Uri.parse(paths)
 
         bitmap = selectedBitmap
         Timber.d("Bitmap URI : %s", uris.toString())
-    }
 
-    // Todo -> learn lifecycle of custom view, there still something wrong with this flow especially in bitmap handling
+
+//        drawBitmapImage(canvas, bitmap)
+    }
 }
