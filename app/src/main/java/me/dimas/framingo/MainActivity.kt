@@ -11,6 +11,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import kotlinx.android.synthetic.main.activity_main.*
 import timber.log.Timber
+import java.io.File
 import java.io.IOException
 
 class MainActivity : AppCompatActivity() {
@@ -103,17 +104,22 @@ class MainActivity : AppCompatActivity() {
         if (data != null) {
             val imageURI = data.data
             val stringURI = imageURI.toString()
+            val imagePath = imageURI.path
 
+            Timber.d("Image Path: $imagePath")
             Timber.d("Image URI: $imageURI")
 
             try {
                 bitmap = MediaStore.Images.Media.getBitmap(this.contentResolver, imageURI)
 //                image_display.setImageURI(contentURI)
 //                custom_display.getBitmap(applicationContext, bitmap)
-                startEditActivity(stringURI)
+//                image.setImageBitmap(bitmap)
+//                startEditActivity(stringURI)
+                image.setImageBitmap(bitmap)
+                createTempImage(bitmap, stringURI)
             } catch (e: IOException) {
                 e.printStackTrace()
-                Timber.e(e)
+                Timber.e("IO EXCEPTION $e")
             }
         }
     }
@@ -128,9 +134,20 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    private fun createTempImage(imageUri: Uri?) {
+    private fun createTempImage(imageBitmap: Bitmap, uri: String) {
         // Todo create temp image file
-        // And access that image file through CustomView Kit
-        //
+//        val fileName = "selected_image"
+//        val outputDir = applicationContext.cacheDir
+//        File.createTempFile(fileName, ".jpg", outputDir)
+
+//        Timber.d("Cache Directories: $outputDir")
+
+        Uri.parse(uri).lastPathSegment.let { fileName ->
+            File.createTempFile(fileName, ".jpg", this.applicationContext.cacheDir)
+            Timber.d("File Name : $fileName")
+        }
+
+        Timber.d("cache directories: %s", cacheDir)
+
     }
 }

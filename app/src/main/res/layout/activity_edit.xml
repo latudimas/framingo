@@ -15,4 +15,11 @@
         android:layout_height="150dp"
         android:layout_below="@id/custom_display"
         android:layout_margin="10dp" />
+
+    <TextView
+        android:id="@+id/text_temp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/temp"
+        android:layout_margin="10dp"/>
 </RelativeLayout>
