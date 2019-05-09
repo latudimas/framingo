@@ -21,13 +21,14 @@ class CustomView @JvmOverloads constructor(context: Context?, attrs: AttributeSe
     private val paint = Paint(Paint.ANTI_ALIAS_FLAG)
     private var squareFrameColor = Color.BLACK
     private var size = 360
+
     private lateinit var bitmap: Bitmap
 
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
 
         drawSquareFrame(canvas)
-//        drawBitmapImage(canvas)
+        drawBitmapImage(canvas)
     }
 
     /**
@@ -59,33 +60,24 @@ class CustomView @JvmOverloads constructor(context: Context?, attrs: AttributeSe
 
 //        (bitmap, 0, 0, bitmapWidth, bitmapHeight, matrix, false)
 
-        if (bitmap == null) {
-            Timber.d("Bitmap are null")
-        } else {
             val bitmapWidth = bitmap.width
             val bitmapHeight = bitmap.height
 
-            var targetWidth = (0.75 * bitmapWidth).toInt()
-            var targetHeight = (0.75 * bitmapHeight).toInt()
+            val targetWidth = (0.75 * bitmapWidth).toInt()
+            val targetHeight = (0.75 * bitmapHeight).toInt()
 
             val resizedBitmap = Bitmap.createScaledBitmap(bitmap, targetWidth, targetHeight, false)
 
             canvas?.drawBitmap(resizedBitmap, 100f, 100f, null)
-        }
+
     }
 
     /**
      * Get Bitmap image from activity result
-     * Todo 
      */
-    fun setBitmap(inContext: Context?, selectedBitmap: Bitmap, canvas: Canvas?) {
-        var paths = MediaStore.Images.Media.insertImage(inContext?.contentResolver, selectedBitmap, "Title", null)
-        var uris: Uri? = Uri.parse(paths)
+    fun setBitmap(selectedBitmap: Bitmap) {
 
         bitmap = selectedBitmap
-        Timber.d("Bitmap URI : %s", uris.toString())
-
-
-//        drawBitmapImage(canvas, bitmap)
+        Timber.d("Bitmap Successfully Set")
     }
 }

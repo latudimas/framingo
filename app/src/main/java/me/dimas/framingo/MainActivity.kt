@@ -114,9 +114,9 @@ class MainActivity : AppCompatActivity() {
 //                image_display.setImageURI(contentURI)
 //                custom_display.getBitmap(applicationContext, bitmap)
 //                image.setImageBitmap(bitmap)
-//                startEditActivity(stringURI)
+                startEditActivity(stringURI)
                 image.setImageBitmap(bitmap)
-                createTempImage(bitmap, stringURI)
+//                createTempImage(bitmap, stringURI)
             } catch (e: IOException) {
                 e.printStackTrace()
                 Timber.e("IO EXCEPTION $e")
@@ -142,13 +142,15 @@ class MainActivity : AppCompatActivity() {
 
 //        Timber.d("Cache Directories: $outputDir")
 
+
+
         Uri.parse(uri).lastPathSegment.let { fileName ->
             File.createTempFile(fileName, ".jpg", applicationContext.cacheDir)
             Timber.d("File Name : $fileName")
             Timber.d("Cache Dir : ${applicationContext.cacheDir}")
         }
 
-        // Todo Make sure temporary data created using Device File Explorer
+        // Todo [DONE] Make sure temporary data created using Device File Explorer
         // Todo craete methods for passing the file name into Custom Activity\
     }
 }
