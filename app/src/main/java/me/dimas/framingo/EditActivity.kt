@@ -10,6 +10,9 @@ class EditActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // Todo : before set content view try to pass the image into custom view
+
+        // Setting layout used for this activity
         setContentView(R.layout.activity_edit)
 
         val stringURI = intent.getStringExtra("IMAGES")

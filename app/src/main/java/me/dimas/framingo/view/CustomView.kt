@@ -76,6 +76,7 @@ class CustomView @JvmOverloads constructor(context: Context?, attrs: AttributeSe
 
     /**
      * Get Bitmap image from activity result
+     * Todo 
      */
     fun setBitmap(inContext: Context?, selectedBitmap: Bitmap, canvas: Canvas?) {
         var paths = MediaStore.Images.Media.insertImage(inContext?.contentResolver, selectedBitmap, "Title", null)

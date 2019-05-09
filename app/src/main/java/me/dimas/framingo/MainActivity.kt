@@ -143,11 +143,12 @@ class MainActivity : AppCompatActivity() {
 //        Timber.d("Cache Directories: $outputDir")
 
         Uri.parse(uri).lastPathSegment.let { fileName ->
-            File.createTempFile(fileName, ".jpg", this.applicationContext.cacheDir)
+            File.createTempFile(fileName, ".jpg", applicationContext.cacheDir)
             Timber.d("File Name : $fileName")
+            Timber.d("Cache Dir : ${applicationContext.cacheDir}")
         }
 
-        Timber.d("cache directories: %s", cacheDir)
-
+        // Todo Make sure temporary data created using Device File Explorer
+        // Todo craete methods for passing the file name into Custom Activity\
     }
 }
